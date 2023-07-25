@@ -7,12 +7,11 @@ app.use(express.json())
 
 mongoose.connect('mongodb+srv://cleopathrastudies:3sIwnJq8wh8Ssmyl@learnapis.4fbsavn.mongodb.net/ApiTables?retryWrites=true&w=majority').then(()=>{
     
-app.listen(3000, ()=>{})
+app.listen(3001, ()=>{})
 }).catch((error)=>{
     console.log(error)
 
 })
-
 
 app.get('/product', async(req, res) =>{
     try {
