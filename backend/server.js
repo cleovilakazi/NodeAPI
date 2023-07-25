@@ -13,6 +13,7 @@ app.listen(3000, ()=>{})
 
 })
 
+
 app.get('/product', async(req, res) =>{
     try {
         const product = await Product.find()
