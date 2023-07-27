@@ -17,6 +17,7 @@ const POS = () => {
   const addProductToCart = async(product) =>{
     // check if the adding product exist
     let findProductInCart = await cart.find(i=>{
+      
       return i.id === product.id
     });
 
@@ -32,7 +33,8 @@ const POS = () => {
             totalAmount: cartItem.price * (cartItem.quantity + 1)
           }
           newCart.push(newItem);
-        }else{
+        }
+        else{
           newCart.push(cartItem);
         }
       });
