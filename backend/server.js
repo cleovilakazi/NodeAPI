@@ -6,21 +6,10 @@ const User = require('./models/userModel')
 const cors = require('cors')
 
 
+
 app.use(express.json())
 app.use(cors())
 
-// const signup = async (email, password) => {
-    
-//     const exists = await User.findOne({ email });
-//     if (exists) {
-//       throw Error("Email already in use");
-//     }
-//     const salt = await bcrypt.genSalt(10);
-//     const hash = await bcrypt.hash(password, salt);
-//     const user = await User.create({ email, password: hash });
-  
-//     return user;
-//   }; 
 
 mongoose.connect('mongodb+srv://cleopathrastudies:3sIwnJq8wh8Ssmyl@learnapis.4fbsavn.mongodb.net/ApiTables?retryWrites=true&w=majority').then(()=>{
     
@@ -116,16 +105,16 @@ app.post('/login', (req,res) =>{
 
 })
 
-app.post('/register', (req, res) =>{
+app.post('/register', async(req, res) =>{
     
     const {email, password } = req.body
     try {
-        const user = User.signup(email, password)
-        res.status(200).json({email, user})
+        const user = await User.signup(email, password)
+        res.status(200).json({email, user})  
         
     } catch (error) {
         res.status(400).json({message: error.message})
-        
+         
     }
      
     
