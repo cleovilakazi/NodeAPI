@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const validator = require('validator')
-
-
+const validator = require("validator");
 
 const Schema = mongoose.Schema;
 
@@ -18,17 +16,15 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.statics.signup = async function(email, password) {
-  if(!email || !password){
-    throw new Error("Fill all fields")
-
+userSchema.statics.signup = async function (email, password) {
+  if (!email || !password) {
+    throw new Error("Fill all fields");
   }
-  if(!validator.isEmail(email)){
-    throw new Error("Email not valid")   
+  if (!validator.isEmail(email)) {
+    throw new Error("Email not valid");
   }
-  if(!validator.isStrongPassword(password)){
-    throw new Error("Password not strong") 
-
+  if (!validator.isStrongPassword(password)) {
+    throw new Error("Password not strong");
   }
   const exists = await this.findOne({ email });
   if (exists) {
@@ -41,4 +37,21 @@ userSchema.statics.signup = async function(email, password) {
   return user;
 };
 
-module.exports = mongoose.model("User",userSchema);
+userSchema.statics.login = async function (email, password) {
+  if (!email || !password) {
+    throw new Error("Fill all fields");
+  }
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw new Error("Incorrect email");
+  }
+
+  const match = await bcrypt.compare(password, user.password)
+
+  if(!match){
+    throw Error('Incorrect password')
+  }
+  return user
+};
+
+module.exports = mongoose.model("User", userSchema);

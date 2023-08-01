@@ -104,8 +104,18 @@ app.delete('/product/:id', async(req, res) =>{
     }
 })
 
-app.post('/login', (req,res) =>{
-    res.json({msg: "login user"})
+app.post('/login', async(req,res) =>{
+    const {email, password } = req.body
+
+    try {
+        const user = await User.login(email, password)
+        const token = createToken(user._id)
+        res.status(200).json({email, token})  
+        
+    } catch (error) {
+        res.status(400).json({message: error.message})
+         
+    }
 
 })
 
@@ -119,7 +129,6 @@ app.post('/register', async(req, res) =>{
         
     } catch (error) {
         res.status(400).json({message: error.message})
-         
     }
      
     
