@@ -1,17 +1,21 @@
+require('dotenv').config();
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose');
 const Product = require('./models/productModels')
 const User = require('./models/userModel')
 const cors = require('cors')
-
-
-
+const jwt = require('jsonwebtoken')
 app.use(express.json())
 app.use(cors())
 
+const createToken = (_id) => {
+    return jwt.sign({_id}, process.env.SECRET, {expiresIn:"3d"})
 
-mongoose.connect('mongodb+srv://cleopathrastudies:3sIwnJq8wh8Ssmyl@learnapis.4fbsavn.mongodb.net/ApiTables?retryWrites=true&w=majority').then(()=>{
+}
+
+
+mongoose.connect(process.env.URI).then(()=>{
     
 app.listen(3001, ()=>{})
 }).catch((error)=>{
@@ -110,7 +114,8 @@ app.post('/register', async(req, res) =>{
     const {email, password } = req.body
     try {
         const user = await User.signup(email, password)
-        res.status(200).json({email, user})  
+        const token = createToken(user._id)
+        res.status(200).json({email, token})  
         
     } catch (error) {
         res.status(400).json({message: error.message})
