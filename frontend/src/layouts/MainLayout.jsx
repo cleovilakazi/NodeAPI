@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
 
 const MainLayout = ({ children }) => {
+  const { logout } = useLogout();
+  const handleClick = () => {
+    logout();
+  };
   return (
     <div>
       <header>
@@ -11,12 +16,15 @@ const MainLayout = ({ children }) => {
               Magic Donuts
             </Link>
           </div>
+          <div>
+            <button onClick={handleClick}>Logout</button>
+          </div>
           <Link to="/login" className="navbar-brand">
-              Login
-            </Link>
-            <Link to="/register" className="navbar-brand">
-              Register
-            </Link>
+            Login
+          </Link>
+          <Link to="/register" className="navbar-brand">
+            Register
+          </Link>
         </nav>
       </header>
       <main>
