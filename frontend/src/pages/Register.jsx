@@ -1,56 +1,38 @@
 import React, { useState } from "react";
+import { useSignUp } from "../hooks/useSignUp";
 
 const Register = () => {
-  const [name, setName] = useState("");
+  //const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { signup, error, isLoading } = useSignUp();
 
   const registerUser = async (event) => {
-    event.preventDefault()
-    
-    const response = await fetch("http://localhost:3001/users", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
-    const data = await response.json()
-    console.log(data)
-    
-  };
+    event.preventDefault();
 
- 
+    await signup(email, password);
+  };
 
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={registerUser()}>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          type="text"
-          placeholder="Name"
-        />
-        <br />
+      <form onSubmit={(e) => registerUser(e)}>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          type="text"
+          type="email"
           placeholder="Email"
         />
         <br />
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          type="text"
+          type="password"
           placeholder="Password"
         />
         <br />
-        <input type="button" value="submit" />
+        <input disabled={isLoading} type="submit" value="submit" />
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   );

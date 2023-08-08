@@ -11,6 +11,12 @@ const MainLayout = ({ children }) => {
               Magic Donuts
             </Link>
           </div>
+          <Link to="/login" className="navbar-brand">
+              Login
+            </Link>
+            <Link to="/register" className="navbar-brand">
+              Register
+            </Link>
         </nav>
       </header>
       <main>
