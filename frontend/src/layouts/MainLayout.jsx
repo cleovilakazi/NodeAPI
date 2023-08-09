@@ -1,13 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const MainLayout = ({ children }) => {
   const { logout } = useLogout();
+  const user = useAuthContext();
+  //const userEmail = user.user.email
+  
+  
   const handleClick = () => {
+    console.log(user)
+    
     logout();
   };
   return (
+    
+    
     <div>
       <header>
         <nav className="navbar navbar-light bg-primary">
@@ -16,15 +25,20 @@ const MainLayout = ({ children }) => {
               Magic Donuts
             </Link>
           </div>
-          <div>
-            <button onClick={handleClick}>Logout</button>
-          </div>
-          <Link to="/login" className="navbar-brand">
-            Login
-          </Link>
-          <Link to="/register" className="navbar-brand">
-            Register
-          </Link>
+          {user.user ? (
+            <div>
+              <span>{user.user.email}</span>
+              <button onClick={handleClick}>Logout</button>
+            </div>
+          ) :
+          (<div>
+            <Link to="/login" className="navbar-brand">
+              Login
+            </Link>
+            <Link to="/register" className="navbar-brand">
+              Register
+            </Link>
+          </div>)}
         </nav>
       </header>
       <main>

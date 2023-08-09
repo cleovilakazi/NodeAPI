@@ -2,9 +2,6 @@ import React, {useState} from 'react';
 import { useLogin } from "../hooks/useLogin";
 import MainLayout from "../layouts/MainLayout";
 
-
-
-
 const Login = () => {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
