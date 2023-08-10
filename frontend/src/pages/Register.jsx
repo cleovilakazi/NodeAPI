@@ -3,7 +3,6 @@ import { useSignUp } from "../hooks/useSignUp";
 import MainLayout from "../layouts/MainLayout";
 
 const Register = () => {
-  //const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const { signup, error, isLoading } = useSignUp();

@@ -1,19 +1,38 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
-import axios from "axios";
+
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const POS = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cart, setCart] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const { user } = useAuthContext();
 
-  const fetchProducts = async () => {
-    setIsLoading(true);
-    const result = await axios.get("product");
-    setProducts(await result.data);
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      const res = fetch("product", {
+        headers: 
+        { "Authorization": `Bearer ${user.token}` },
+      });
+      
+
+        const data = (await res).text()
+        const a = await data
+        const parsed = JSON.parse(a)
+
+      
+
+      setProducts(parsed);
+      setIsLoading(false);
+    };
+
+    if (user) {
+      fetchProducts();
+    }
+  }, [user]);
 
   const addProductToCart = async (product) => {
     let findProductInCart = await cart.find((i) => {
@@ -54,15 +73,11 @@ const POS = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    let newTotalAmount =0
-    cart.forEach(cartItem => {
-      newTotalAmount += cartItem.to
-    })
-    setTotalAmount(newTotalAmount)
+    let newTotalAmount = 0;
+    cart.forEach((cartItem) => {
+      newTotalAmount += cartItem.to;
+    });
+    setTotalAmount(newTotalAmount);
   }, [cart]);
 
   return (
