@@ -6,12 +6,10 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const MainLayout = ({ children }) => {
   const { logout } = useLogout();
   const user = useAuthContext();
-  //const userEmail = user.user.email
+  
   
   
   const handleClick = () => {
-    console.log(user)
-    
     logout();
   };
   return (
