@@ -14,6 +14,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  // user_id: {
+  //   type: String,
+  //   required: true,
+  // }
 });
 
 userSchema.statics.signup = async function (email, password) {

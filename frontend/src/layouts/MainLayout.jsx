@@ -26,6 +26,7 @@ const MainLayout = ({ children }) => {
           {user.user ? (
             <div>
               <span>{user.user.email}</span>
+              <button><Link to="/cart">Cart</Link></button>
               <button onClick={handleClick}>Logout</button>
             </div>
           ) :

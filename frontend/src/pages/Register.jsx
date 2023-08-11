@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSignUp } from "../hooks/useSignUp";
 import MainLayout from "../layouts/MainLayout";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [password, setPassword] = useState("");
@@ -35,6 +36,9 @@ const Register = () => {
           <input disabled={isLoading} type="submit" value="submit" />
           {error && <div className="error">{error}</div>}
         </form>
+        <Link to="/login" >
+          Have an account? Click to login
+        </Link>
       </div>
     </MainLayout>
   );

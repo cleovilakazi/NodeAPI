@@ -15,8 +15,8 @@ const HompePage = () => {
         <p>quia voluptas sit aspernatur aut odit aut fugit, </p>
         <p>sed quia consequuntur magni dolores eos qui ratione </p>
         <p>voluptatem sequi nesciunt. </p>
-        <Link to="/pos" className="btn bg-primary">
-          Click to view products
+        <Link to="/login" className="btn bg-primary">
+          Click to login
         </Link>
       </div>
     </MainLayout>

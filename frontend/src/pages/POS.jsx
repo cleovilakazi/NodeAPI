@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
+import { addProductToCart, removeProduct } from "./Cart";
 
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -14,16 +15,12 @@ const POS = () => {
     const fetchProducts = async () => {
       setIsLoading(true);
       const res = fetch("product", {
-        headers: 
-        { "Authorization": `Bearer ${user.token}` },
+        headers: { Authorization: `Bearer ${user.token}` },
       });
-      
 
-        const data = (await res).text()
-        const a = await data
-        const parsed = JSON.parse(a)
-
-      
+      const data = (await res).text();
+      const a = await data;
+      const parsed = JSON.parse(a);
 
       setProducts(parsed);
       setIsLoading(false);
@@ -34,43 +31,6 @@ const POS = () => {
     }
   }, [user]);
 
-  const addProductToCart = async (product) => {
-    let findProductInCart = await cart.find((i) => {
-      return i.id === product.id;
-    });
-
-    if (findProductInCart) {
-      let newCart = [];
-      let newItem;
-
-      cart.forEach((cartItem) => {
-        if (cartItem.id === product.id) {
-          newItem = {
-            ...cartItem,
-            quantity: cartItem.quantity + 1,
-            totalAmount: cartItem.price * (cartItem.quantity + 1),
-          };
-          newCart.push(newItem);
-        } else {
-          newCart.push(cartItem);
-        }
-      });
-
-      setCart(newCart);
-    } else {
-      let addingProduct = {
-        ...product,
-        quantity: 1,
-        totalAmount: product.price,
-      };
-      setCart([...cart, addingProduct]);
-    }
-  };
-
-  const removeProduct = async (product) => {
-    const newCart = cart.filter((cartItem) => cartItem.id !== product.id);
-    setCart(newCart);
-  };
 
   useEffect(() => {
     let newTotalAmount = 0;
@@ -92,7 +52,7 @@ const POS = () => {
                 <div key={key} className="col-lg-4">
                   <div
                     className="border"
-                    onClick={() => addProductToCart(product)}
+                    onClick={() => addProductToCart(product,cart, setCart)}
                   >
                     <p>{product.name}</p>
                     <img
@@ -100,7 +60,14 @@ const POS = () => {
                       className="img-fluid"
                       alt={product.name}
                     />
-                    <p>R{product.price}</p>
+                    <div className="row">
+                      <div className="col-5">
+                        <p>R{product.price}</p>
+                      </div>
+                      <div className="col-5">
+                        <button>add to cart</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -132,7 +99,7 @@ const POS = () => {
                         <td>
                           <button
                             className="btn btn-danger btn-sm"
-                            onClick={() => removeProduct(cartProduct)}
+                            onClick={() => removeProduct(cartProduct, cart, setCart)}
                           >
                             Remove
                           </button>

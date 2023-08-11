@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { useLogin } from "../hooks/useLogin";
 import MainLayout from "../layouts/MainLayout";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [password, setPassword] = useState("")
@@ -16,7 +17,9 @@ const Login = () => {
       };
     return (
         <MainLayout>
+          
         <div>
+
         <h1>Login</h1>
         <form onSubmit={(e) => loginUser(e)}>
          
@@ -37,6 +40,9 @@ const Login = () => {
           <input disabled={isLoading} type="submit" value="submit" />
           {error && <div className="error">{error}</div>}
         </form>
+        <Link to="/register" >
+          No account? Click to signup
+        </Link>
       </div>
       </MainLayout>
     
