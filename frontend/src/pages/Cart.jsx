@@ -1,48 +1,60 @@
-import MainLayout from "../layouts/MainLayout";
-
-export const addProductToCart = async (product, cart, setCart) => {
-  let findProductInCart = await cart.find((i) => {
-    return i.id === product.id;
-  });
-
-  if (findProductInCart) {
-    let newCart = [];
-    let newItem;
-
-    cart.forEach((cartItem) => {
-      if (cartItem.id === product.id) {
-        newItem = {
-          ...cartItem,
-          quantity: cartItem.quantity + 1,
-          totalAmount: cartItem.price * (cartItem.quantity + 1),
-        };
-        newCart.push(newItem);
-      } else {
-        newCart.push(cartItem);
-      }
-    });
-
-    setCart(newCart);
-  } else {
-    let addingProduct = {
-      ...product,
-      quantity: 1,
-      totalAmount: product.price,
-    };
-    setCart([...cart, addingProduct]);
-  }
-};
-export const removeProduct = async (product, cart, setCart) => {
-  const newCart = cart.filter((cartItem) => cartItem.id !== product.id);
-  setCart(newCart);
-};
+import { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
 
 const Cart = () => {
-    return (
-        <MainLayout>
+  const { cart, removeProduct, clearCart, getCartTotal } =
+    useContext(CartContext);
 
-        </MainLayout>
-    )
-}
+  return cart.length > 0 ? (
+    <div className="col-lg-4">
+      <div className="table-responsive bg-dark">
+        <table className="table table-responsive table-dark table-hover">
+          <thead>
+            <tr>
+              <td>#</td>
+              <td>Name</td>
+              <td>Price</td>
+              <td>Qty</td>
+              <td>Total</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((cartProduct, key) => (
+              <tr key={key}>
+                <td>{cartProduct.id}</td>
+                <td>{cartProduct.name}</td>
+                <td>{cartProduct.price}</td>
+                <td>{cartProduct.quantity}</td>
+                <td>{cartProduct.totalAmount}</td>
+                <td>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => removeProduct(cartProduct)}
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex flex-col justify-between items-center">
+        <h3 className="text-lg font-bold">Total: ${getCartTotal()}</h3>
+        <button
+          onClick={() => {
+            clearCart();
+          }}
+        >
+          Clear cart
+        </button>
+      </div>
+    </div>
+  ) : (
+    <p className="text-sm font-bold">Your cart is empty</p>
+  );
+};
 
 export default Cart;
