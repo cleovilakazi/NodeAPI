@@ -1,12 +1,14 @@
-import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { CartContext } from "../contexts/CartContext";
+
 
 const MainLayout = ({ children }) => {
   const { logout } = useLogout();
   const user = useAuthContext();
-  
+  const {cart} = useContext(CartContext)
   
   
   const handleClick = () => {
@@ -26,7 +28,7 @@ const MainLayout = ({ children }) => {
           {user.user ? (
             <div>
               <span>{user.user.email}</span>
-              <button><Link to="/cart">Cart</Link></button>
+              <button><Link to="/cart">Cart<sup>{cart.length}</sup></Link></button>
               <button onClick={handleClick}>Logout</button>
             </div>
           ) :
