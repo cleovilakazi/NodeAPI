@@ -1,22 +1,28 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { CartContext } from "../contexts/CartContext";
+import Cart from "../pages/Cart";
 
 
 const MainLayout = ({ children }) => {
   const { logout } = useLogout();
   const user = useAuthContext();
   const {cart} = useContext(CartContext)
+  const [showModal, setShowModal] = useState(false)
   
   
   const handleClick = () => {
     logout();
   };
+
+  const toggle = () => {
+    setShowModal(!showModal)
+  }
+  
+
   return (
-    
-    
     <div>
       <header>
         <nav className="navbar navbar-light bg-primary">
@@ -28,7 +34,7 @@ const MainLayout = ({ children }) => {
           {user.user ? (
             <div>
               <span>{user.user.email}</span>
-              <button><Link to="/cart">Cart<sup>{cart.length}</sup></Link></button>
+              {!showModal && <button onClick={toggle}>Cart<sup>{cart.length}</sup></button>}
               <button onClick={handleClick}>Logout</button>
             </div>
           ) :
@@ -41,6 +47,7 @@ const MainLayout = ({ children }) => {
             </Link>
           </div>)}
         </nav>
+        <Cart showModal={showModal} toggle={toggle} />
       </header>
       <main>
         <div className="container nt-3"></div>
