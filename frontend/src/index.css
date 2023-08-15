@@ -12,5 +12,145 @@ code {
     monospace;
 }
 
+/* CART SECTION START */
+
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(25, 31, 53, 0.6);
+}
+
+.child {
+  background-color: white;
+  width: 50%;
+  max-width: 400px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  padding: 20px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+
+}
 
 
+.nav-left-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.empty-cart-img {
+  max-width: 100%; /* The image won't exceed its container's width */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove any extra space below the image */
+  margin: 0 auto;
+}
+
+.close{
+  position: absolute; /* Position the button absolutely */
+  top: 0; /* Position from the top */
+  right: 0%;
+  background-color: white;
+  border: none;
+  
+
+}
+
+.empty-cart-text{
+  font-family: "Cherry Bomb One";
+}
+
+
+.cart-image{
+  max-width: 100%; /* The image won't exceed its container's width */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove any extra space below the image */
+  margin: 0 0 auto;
+
+}
+
+.cart-item-name,
+.cart-item-price,
+.cart-item-quantity,
+.cart-item-total{
+  padding: 0.5rem;
+  margin: 0;
+  
+
+
+}
+
+/* CART SECTION END */
+
+
+/* ________________________________________________________________ */
+
+/* NAV SECTION STARTS */
+.navbar{
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  
+}
+
+.navbar-brand{
+  font-family: "Cherry Bomb One";
+
+}
+
+.login-link,
+.signup-link{
+  text-decoration: none;
+
+}
+
+.btn-login,
+.btn-register{
+  background-color: white;
+  border: 0;
+
+}
+
+
+
+/* NAV SECTION END */
+
+/* ____________________________________________________________________________ */
+
+@media screen and (max-width: 480px) {
+  .cart-image{
+    max-width: 50%;
+  }
+ 
+}
+
+@media screen and (max-width: 768px) {
+
+  .cart-image{
+    max-width: 100%;
+  }
+ 
+}
+
+@media screen and (max-width: 1024px) {
+  .cart-image{
+    max-width: 100%;
+  }
+ 
+}
+
+@media screen and (max-width: 1200px) {
+  .cart-image{
+    max-width: 100%;
+  }
+ 
+}
+
+@media screen and (min-width: 1201px) {
+ 
+}

@@ -25,26 +25,29 @@ const MainLayout = ({ children }) => {
   return (
     <div>
       <header>
-        <nav className="navbar navbar-light bg-primary">
-          <div className="container">
+        <nav className="navbar ">
+          <div >
             <Link to="/" className="navbar-brand">
               Magic Donuts
             </Link>
           </div>
           {user.user ? (
-            <div>
-              <span>{user.user.email}</span>
-              {!showModal && <button onClick={toggle}>Cart<sup>{cart.length}</sup></button>}
-              <button onClick={handleClick}>Logout</button>
+            <div className="nav-left-content">
+              <span className="user material-symbols-outlined">account_circle</span>
+              {!showModal && <button  className ="btn cart-btn material-symbols-outlined" onClick={toggle}>shopping_cart<sup className="cart-length">{cart.length}</sup></button>}
+              <button className ="btn logout-btn" onClick={handleClick}>Logout</button>
             </div>
           ) :
-          (<div>
-            <Link to="/login" className="navbar-brand">
+          (<div className="nav-left-content">
+            <button className="btn-login"><Link className="login-link" to="/login" >
               Login
             </Link>
-            <Link to="/register" className="navbar-brand">
+            </button>
+            <button className="btn-register">
+            <Link className="signup-link" to="/register" >
               Register
             </Link>
+            </button>
           </div>)}
         </nav>
         <Cart showModal={showModal} toggle={toggle} />

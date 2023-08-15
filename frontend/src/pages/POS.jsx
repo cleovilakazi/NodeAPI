@@ -43,18 +43,19 @@ const POS = () => {
               {products.map((product, key) => (
                 <div key={key} className="col-lg-4">
                   <div className="border">
-                    <p>{product.name}</p>
+                    
                     <img
                       src={product.image}
                       className="img-fluid"
                       alt={product.name}
                     />
+                    <p>{product.name}</p>
                     <div className="row">
                       <div className="col-5">
                         <p>R{product.price}</p>
                       </div>
                       <div className="col-5">
-                        <button onClick={() => addProductToCart(product)}>
+                        <button className ="btn" onClick={() => addProductToCart(product)}>
                           add to cart
                         </button>
                       </div>
