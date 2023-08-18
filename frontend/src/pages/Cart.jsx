@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
+import {motion} from "framer-motion"
 
 const Cart = ({ showModal, toggle }) => {
   const { cart, removeProduct, clearCart, getCartTotal } =
@@ -9,7 +10,12 @@ const Cart = ({ showModal, toggle }) => {
   return (
     showModal &&
     (cart.length > 0 ? (
-      <div className="parent">
+      <motion.div 
+      
+      initial={{opacity:0}}
+      animate={{opacity:1}}
+      exit={{opacity:0}} 
+      className="parent">
         <div className="child">
           <button className="close material-symbols-outlined" onClick={toggle}>
             close
@@ -50,9 +56,14 @@ const Cart = ({ showModal, toggle }) => {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     ) : (
-      <div className="parent">
+      
+        <motion.div 
+        
+        initial={{opacity:0}}
+        animate={{opacity:1}}
+        exit={{opacity:0}}  className="parent">
         <div className="child">
           <button className="close material-symbols-outlined" onClick={toggle}>
             close
@@ -66,7 +77,7 @@ const Cart = ({ showModal, toggle }) => {
             Your cart is empty
           </p>
         </div>
-      </div>
+      </motion.div>
     ))
   );
 };

@@ -3,6 +3,8 @@ import MainLayout from "../layouts/MainLayout";
 //import { addProductToCart, removeProduct } from "./Cart";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { CartContext } from "../contexts/CartContext";
+import { motion } from "framer-motion";
+
 
 const POS = () => {
   const [products, setProducts] = useState([]);
@@ -34,7 +36,11 @@ const POS = () => {
 
   return (
     <MainLayout>
-      <div className="row">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+       className="row">
         <div className="col-lg-8">
           {isLoading ? (
             "Loading"
@@ -67,7 +73,7 @@ const POS = () => {
           )}
         </div>
         
-      </div>
+      </motion.div>
     </MainLayout>
   );
 };
